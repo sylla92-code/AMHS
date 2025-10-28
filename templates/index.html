@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Prise en main</title>
+</head>
+<body>
+  <div class="mt-5">
+    <h3 class=" fw-bold fs-2 text-center">Donnés reçues</h3>
+  <div class="container" id="table">
+    <table class="table table-sm table-striped  text-center custom">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">temperature</th>
+        <th scope="col">tension</th>
+        <th scope="col">date</th>
+    </thead>
+    <tbody>
+    {% for table in tableau %}
+         <tr>
+            <td>{{table.ID}}</td>
+            <td>{{table.temperature}}</td>
+            <td>{{table.tension}}</td>
+            <td>{{table.date}}</td>
+        </tr>
+
+
+    {% endfor %}
+
+
+        
+      </tr>
+    </tbody>
+
+   </table>
+
+  </div>
+
+  </div>
+  
+   
+   
+
+</body>
+</html>
