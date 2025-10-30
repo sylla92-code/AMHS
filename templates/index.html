@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
 
 
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'style.css' %}">
@@ -13,7 +12,29 @@
 </head>
 <body>
   <div class="mt-5">
-    <h3 class=" fw-bold fs-2 text-center">Donnés reçues</h3>
+    <h3 class=" fw-bold fs-2 text-center">Simulation</h3>
+      <div class="container mb-4">
+      <form action="{% url 'envoie' %}" method="post" class="p-3 border rounded bg-light">
+        {% csrf_token %}
+        <div class="row g-3">
+          <div class="col-md-3">
+            <label for="id" class="form-label">ID</label>
+            <input type="number" name="id" id="id" class="form-control" required>
+          </div>
+          <div class="col-md-3">
+            <label for="temperature" class="form-label">Température</label>
+            <input type="number" name="temperature" id="temperature" class="form-control" required>
+          </div>
+          <div class="col-md-3">
+            <label for="tension" class="form-label">Tension</label>
+            <input type="number" name="tension" id="tension" class="form-control" required>
+          </div>
+          <div class="col-md-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Envoyer les données</button>
+          </div>
+        </div>
+      </form>
+    </div>
   <div class="container" id="table">
     <table class="table table-sm table-striped  text-center custom">
     <thead class="table-dark">
@@ -26,10 +47,10 @@
     <tbody>
     {% for table in tableau %}
          <tr>
-            <td>{{table.ID}}</td>
+            <td>{{table.id}}</td>
             <td>{{table.temperature}}</td>
             <td>{{table.tension}}</td>
-            <td>{{table.date}}</td>
+            <td>{{ table.date|date:"Y-m-d H:i:s" }}</td>
         </tr>
 
 

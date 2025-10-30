@@ -1,5 +1,6 @@
 import json
-
+import random
+from django.shortcuts import redirect
 import requests
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -16,17 +17,35 @@ from django.http import JsonResponse
 def receive(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
-        id = data['ID']
+        print(data)
+        id = data['id']
         temperature = data['temperature']
         tension = data['tension']
-        Tableau.objects.create(ID=id, temperature=temperature, tension=tension)
+        Tableau.objects.create(id=id, temperature=temperature, tension=tension)
         return JsonResponse({'status': 'OK'})
     return JsonResponse({'error': 'PAS VALIDE'})
-
+@csrf_exempt
 def envoie(request):
-    data = {
-        'ID': 92,
-        'temperature': 92,
-        'tension': 92
-    }
-    return JsonResponse(data)
+    if request.method == 'POST':
+        # Récupération des valeurs du formulaire
+        id_value = request.POST.get('id')
+        temperature = request.POST.get('temperature')
+        tension = request.POST.get('tension')
+
+        data = {
+            'id': int(id_value),
+            'temperature': float(temperature),
+            'tension': float(tension)
+        }
+
+        try:
+            response = requests.post("http://10.69.211.74:8000/envoie/", json=data)
+        except Exception as e:
+            return JsonResponse({'status': 'ERROR', 'message': str(e)})
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
+    # Si on arrive ici sans POST → afficher la page principale
+    from .models import Tableau
+    tableau = Tableau.objects.all()
+    return render(request, 'index.html', {'tableau': tableau})
+
