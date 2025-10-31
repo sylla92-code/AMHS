@@ -13,7 +13,7 @@ DJANGO_URL = "http://10.69.211.74:8001/receive/"
 @app.websocket("/ws")
 async def web_socket_endpoint(websocket: WebSocket):
     await websocket.accept()
-    
+    esp_id = None
     
     while True:
         try:
@@ -29,9 +29,10 @@ async def web_socket_endpoint(websocket: WebSocket):
                 try:
                     json_data["id"] = esp_id
                     reponse = requests.post(DJANGO_URL,json=json_data)
+                    
                     print("*******************")
                     print(f"donnée à envoyer: {json_data}")
-                    print(f"réponse de l'envoie vers django: {reponse.status_code} ")
+                    print(f"réponse de l'envoie vers django: {reponse.text} ")
 
                 except Exception as e:
                     print(f"erreur envoie vers django : {e}")
@@ -43,12 +44,15 @@ async def web_socket_endpoint(websocket: WebSocket):
             #await asyncio.sleep(2)
 
         except Exception as e:
-            print(f"connexion websocket fermé: {e}")
-            for key, ws in clients.items():
-                if ws == websocket:
-                    del clients[key]
-                    print(f"client {key} deconnecté")
+            
+            print(f"client {esp_id} deconnecté")
+            del clients[esp_id]
+                
             break
+            
+                    
+
+            
 
 @app.post("/envoie")
 async def receive(requete: dict):

@@ -18,10 +18,10 @@ def receive(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         print(data)
-        id = data['id']
+        numero_car = data['id']
         temperature = data['temperature']
         tension = data['tension']
-        Tableau.objects.create(id=id, temperature=temperature, tension=tension)
+        Tableau.objects.create(numero_car=numero_car, temperature=temperature, tension=tension)
         return JsonResponse({'status': 'OK'})
     return JsonResponse({'error': 'PAS VALIDE'})
 @csrf_exempt
