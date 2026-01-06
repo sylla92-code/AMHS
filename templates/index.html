@@ -19,7 +19,14 @@
         <div class="row g-3">
           <div class="col-md-3">
             <label for="id" class="form-label">ID</label>
-            <input type="number" name="id" id="id" class="form-control" required>
+              <select name="id" id="id" class="form-select">
+                  <option selected value="">choisir l'id</option>
+                  <option  value="all">ALL</option>
+                  <option value="12">12</option>
+                  <option value="92">92</option>
+                  <option value="66">66</option>
+
+              </select>
           </div>
           <div class="col-md-3">
             <label for="temperature" class="form-label">Température</label>
@@ -47,7 +54,7 @@
     <tbody>
     {% for table in tableau %}
          <tr>
-            <td>{{table.id}}</td>
+            <td>{{table.numero_car}}</td>
             <td>{{table.temperature}}</td>
             <td>{{table.tension}}</td>
             <td>{{ table.date|date:"Y-m-d H:i:s" }}</td>
