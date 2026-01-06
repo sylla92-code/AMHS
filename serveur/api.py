@@ -8,7 +8,7 @@ app = FastAPI()
 
 
 clients = {}
-DJANGO_URL = "http://10.69.211.74:8001/receive/"
+DJANGO_URL = "http://10.20.251.74:8001/receive/"
 
 @app.websocket("/ws")
 async def web_socket_endpoint(websocket: WebSocket):
@@ -54,13 +54,14 @@ async def web_socket_endpoint(websocket: WebSocket):
 
             
 
-@app.post("/envoie")
+@app.post("/envoie/")
 async def receive(requete: dict):
     cible = str(requete.get("esp_id"))
     print("*****django vers api****")
     print(f"envoie de django vers esp32: {requete}")
     print(f"cible: {cible}")
-    print(f"liste des esp: {clients}")
+    print(f"ESP connectés: {list(clients.keys())}")
+
     if cible == "ALL":
         for cible, ws in clients.items():
             await ws.send_json(requete)
