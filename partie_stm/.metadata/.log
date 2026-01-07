@@ -1,0 +1,45 @@
+!SESSION 2026-01-06 08:40:30.991 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_FR
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2026-01-06 08:41:12.115
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-01-06 08:41:12.135
+!MESSAGE Log4j2 initialized with config file C:\Users\msylla\OneDrive - X-FAB\Bureau\AMHS\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-01-06 08:41:19.494
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2026-01-06 08:42:59.625
+!MESSAGE No repository found at http://download.eclipse.org/tm/terminal/updates/.
+
+!ENTRY org.eclipse.cdt.core 1 0 2026-01-06 08:43:48.800
+!MESSAGE Indexed 'AMHS' (25 sources, 87 headers) in 7.92 sec: 7,222 declarations; 51,969 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0034%)
+
+!ENTRY org.eclipse.equinox.p2.artifact.repository 2 0 2026-01-06 10:58:00.809
+!MESSAGE No digest algorithm is available to verify download of osgi.bundle,com.microsoft.copilot.eclipse.core,0.14.0.202512112209 from repository https://azuredownloads-g3ahgwb5b8bkbxhd.b01.azurefd.net/github-copilot/.
+
+!ENTRY org.eclipse.equinox.p2.artifact.repository 2 0 2026-01-06 10:58:00.814
+!MESSAGE No digest algorithm is available to verify download of osgi.bundle,com.microsoft.copilot.eclipse.core.agent.win32,0.14.0.202512112209 from repository https://azuredownloads-g3ahgwb5b8bkbxhd.b01.azurefd.net/github-copilot/.
+
+!ENTRY org.eclipse.equinox.p2.artifact.repository 2 0 2026-01-06 10:58:00.819
+!MESSAGE No digest algorithm is available to verify download of org.eclipse.update.feature,com.microsoft.copilot.eclipse.feature,0.14.0.202512112209 from repository https://azuredownloads-g3ahgwb5b8bkbxhd.b01.azurefd.net/github-copilot/.
+
+!ENTRY org.eclipse.equinox.p2.artifact.repository 2 0 2026-01-06 10:58:00.826
+!MESSAGE No digest algorithm is available to verify download of osgi.bundle,com.microsoft.copilot.eclipse.branding,0.14.0.202512112209 from repository https://azuredownloads-g3ahgwb5b8bkbxhd.b01.azurefd.net/github-copilot/.
+
+!ENTRY org.eclipse.equinox.p2.artifact.repository 2 0 2026-01-06 10:58:01.156
+!MESSAGE No digest algorithm is available to verify download of osgi.bundle,com.microsoft.copilot.eclipse.terminal.api,0.14.0.202512112209 from repository https://azuredownloads-g3ahgwb5b8bkbxhd.b01.azurefd.net/github-copilot/.
+
+!ENTRY org.eclipse.equinox.p2.artifact.repository 2 0 2026-01-06 10:58:01.162
+!MESSAGE No digest algorithm is available to verify download of osgi.bundle,com.microsoft.copilot.eclipse.ui,0.14.0.202512112209 from repository https://azuredownloads-g3ahgwb5b8bkbxhd.b01.azurefd.net/github-copilot/.
+
+!ENTRY org.eclipse.equinox.p2.artifact.repository 2 0 2026-01-06 10:58:01.682
+!MESSAGE No digest algorithm is available to verify download of osgi.bundle,com.microsoft.copilot.eclipse.ui.jobs,0.14.0.202512112209 from repository https://azuredownloads-g3ahgwb5b8bkbxhd.b01.azurefd.net/github-copilot/.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2026-01-06 11:29:18.459
+!MESSAGE The digest algorithms (md5) used to verify osgi.bundle,org.slf4j.impl.log4j12,1.7.2.v20131105-2200 have severely compromised security. Please report this concern to the artifact provider.

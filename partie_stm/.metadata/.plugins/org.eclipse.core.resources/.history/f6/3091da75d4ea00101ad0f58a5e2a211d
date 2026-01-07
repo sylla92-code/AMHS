@@ -1,0 +1,115 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : Main program body
+  ******************************************************************************
+  */
+ /* USER CODE END Header */
+
+#include "main.h"
+
+/* USER CODE BEGIN Includes */
+#include <string.h>
+#include <stdio.h>
+/* USER CODE END Includes */
+
+/* USER CODE BEGIN PD */
+#define RX_BUFFER_SIZE 8   // 2 floats = 8 bytes
+#define TX_BUFFER_SIZE 16
+/* USER CODE END PD */
+
+/* Private variables ---------------------------------------------------------*/
+ADC_HandleTypeDef hadc1;
+ADC_HandleTypeDef hadc3;
+I2C_HandleTypeDef hi2c1;
+UART_HandleTypeDef huart2;
+
+/* USER CODE BEGIN PV */
+uint8_t RX_Buffer[RX_BUFFER_SIZE];
+uint8_t TX_Buffer[TX_BUFFER_SIZE] = "ACK STM32\r\n";
+
+float temperature = 0.0f;
+float tension = 0.0f;
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+void PeriphCommonClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_ADC1_Init(void);
+static void MX_ADC3_Init(void);
+static void MX_I2C1_Init(void);
+static void MX_USART2_UART_Init(void);
+
+/* USER CODE BEGIN 0 */
+/* USER CODE END 0 */
+
+int main(void)
+{
+  HAL_Init();
+  SystemClock_Config();
+  PeriphCommonClock_Config();
+
+  MX_GPIO_Init();
+  MX_ADC1_Init();
+  MX_ADC3_Init();
+  MX_I2C1_Init();
+  MX_USART2_UART_Init();
+
+  /* USER CODE BEGIN 2 */
+
+  // Activer l’alimentation du bus I2C
+  HAL_GPIO_WritePin(EN_I2C_GPIO_Port, EN_I2C_Pin, GPIO_PIN_SET);
+
+  // Message debug
+  char msg[] = "STM32 I2C SLAVE READY\r\n";
+  HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+
+  // Armer la réception I2C
+  HAL_I2C_Slave_Receive_IT(&hi2c1, RX_Buffer, RX_BUFFER_SIZE);
+
+  /* USER CODE END 2 */
+
+  while (1)
+  {
+    // Tout se fait en interruption
+  }
+}
+
+/* ===================== CALLBACKS I2C ===================== */
+
+void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
+{
+  // Copier les données reçues
+  memcpy(&temperature, &RX_Buffer[0], 4);
+  memcpy(&tension, &RX_Buffer[4], 4);
+
+  char uart_msg[64];
+  sprintf(uart_msg, "Temp=%.2f C | Tension=%.2f V\r\n", temperature, tension);
+  HAL_UART_Transmit(&huart2, (uint8_t*)uart_msg, strlen(uart_msg), HAL_MAX_DELAY);
+
+  // LED ON pour debug
+  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+
+  // Réponse au maître
+  HAL_I2C_Slave_Transmit_IT(hi2c, TX_Buffer, strlen((char*)TX_Buffer));
+}
+
+void HAL_I2C_SlaveTxCpltCallback(I2C_HandleTypeDef *hi2c)
+{
+  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+
+  // Réarmer la réception
+  HAL_I2C_Slave_Receive_IT(hi2c, RX_Buffer, RX_BUFFER_SIZE);
+}
+
+/* ===================== ERROR HANDLER ===================== */
+
+void Error_Handler(void)
+{
+  __disable_irq();
+  while (1)
+  {
+  }
+}

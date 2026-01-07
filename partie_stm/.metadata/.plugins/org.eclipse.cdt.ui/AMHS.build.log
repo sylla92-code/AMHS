@@ -1,0 +1,10 @@
+09:09:13 **** Incremental Build of configuration Debug for project AMHS ****
+make -j8 all 
+arm-none-eabi-size  AMHS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  27924	     92	   2444	  30460	   76fc	AMHS.elf
+Finished building: default.size.stdout
+ 
+
+09:09:14 Build Finished. 0 errors, 0 warnings. (took 1s.116ms)
+
