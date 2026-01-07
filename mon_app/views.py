@@ -39,7 +39,7 @@ def envoie(request):
         }
 
         try:
-            response = requests.post("http://10.69.211.74:8000/envoie/", json=data)
+            response = requests.post("http://10.20.251.74:8000/envoie/", json=data)
         except Exception as e:
             return JsonResponse({'status': 'ERROR', 'message': str(e)})
         return redirect(request.META.get('HTTP_REFERER', '/'))
@@ -48,4 +48,13 @@ def envoie(request):
     from .models import Tableau
     tableau = Tableau.objects.all()
     return render(request, 'index.html', {'tableau': tableau})
+
+@csrf_exempt
+def view_lists(request):
+    if request.method == 'GET':
+        data = json.loads(request.body.decode('utf-8'))
+        print(data)
+        return JsonResponse({'status': 'OK'})
+    return JsonResponse({'error': 'PAS VALIDE'})
+
 
